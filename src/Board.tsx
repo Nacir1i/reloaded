@@ -25,10 +25,10 @@ function Cell(props: CellProps) {
       }`}
     >
       <p className="absolute top-1 left-2 text-xl text-red-600">
-        {isFirstColumn && props.position.x}
+        {isLastRow && props.position.y}
       </p>
       <p className="absolute bottom-1 right-2 text-2xl text-red-600">
-        {isLastRow && getColumnLetter(props.position.y)}
+        {isFirstColumn && getColumnLetter(props.position.x)}
       </p>
       <img className=" w-2/3" src={props.ChessPiece?.image} alt="" />
     </div>
@@ -46,8 +46,8 @@ function Board(props: BoardProps) {
   const [cells] = useState<CellProps[]>(() => {
     const cellsArray: CellProps[] = [];
     // fixed the x & y axis
-    for (let rowIndex = ROWS; rowIndex >= 1; rowIndex--) {
-      for (let colIndex = 1; colIndex <= COLS; colIndex++) {
+    for (let rowIndex = 1; rowIndex <= ROWS; rowIndex++) {
+      for (let colIndex = COLS; colIndex >= 1; colIndex--) {
         cellsArray.push({
           index: colIndex % 2 ? rowIndex : rowIndex + 1,
           position: { x: rowIndex, y: colIndex },
@@ -63,7 +63,7 @@ function Board(props: BoardProps) {
   });
 
   return (
-    <div className="w-full max-w-[800px] h-[800px] grid grid-cols-8 grid-rows-8">
+    <div className="w-full max-w-[800px] h-[800px] grid grid-cols-8 grid-rows-8 grid-flow-col-dense">
       {cells.map((cell, index) => (
         <Cell
           key={index}
