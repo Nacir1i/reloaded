@@ -1,8 +1,10 @@
 import Board from "./Board"
 
+export type Player = 'white' | 'black';
+
 export type chessPiece = {
   name: 'king' | 'queen' | 'bishop' | 'knight' | 'rook' | 'pawn';
-  color: 'white' | 'black';
+  color: Player;
   position: {
     x: number;
     y: number;
@@ -50,8 +52,11 @@ function App() {
   ];
 
   return (
-    <div className='w-full h-full'>
-      <Board pieces={[...initialBlackPieces, ...initialWhitePieces]} />
+    <div className='w-full h-full relative'>
+      <Board pieces={[...blackPieces, ...whitePieces]} currentPlayer={currentPlayer} />
+      <div className="absolute top-0 right-0 space-x-3">
+        <button onClick={handleTogglePlayer} className="bg-red-400 p-2 py-1 rounded-lg">toggl player</button>
+      </div>
     </div>
   )
 }
