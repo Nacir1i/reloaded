@@ -23,32 +23,32 @@ function Cell(props: CellProps) {
 
 type BoardProps = {
     pieces: chessPiece[];
+    currentPlayer: 'white' | 'black';
 }
 
 function Board(props: BoardProps) {
     const ROWS = 8;
     const COLS = 8;
 
-    const [cells] = useState<CellProps[]>(() => {
+    const [cells, setCells] = useState<CellProps[]>([]);
+
+    useEffect(() => {
         const cellsArray: CellProps[] = [];
         
         for (let rowIndex = 1; rowIndex <= ROWS; rowIndex++) {
             for (let colIndex = 1; colIndex <= COLS; colIndex++) {
+                const piece = props.pieces.find(piece => piece.position.x === rowIndex && piece.position.y === colIndex);
                 cellsArray.push({
                     index: rowIndex % 2 ? colIndex : colIndex + 1,
                     position: { x: rowIndex, y: colIndex },
-                    chessPiece: props.pieces.find(piece => piece.position.x === rowIndex && piece.position.y === colIndex),
+                    chessPiece: piece,
                 });
 
             }
         }
-        
-        return cellsArray;
-    });
 
-    useEffect(() => {
-        console.log(cells);
-    }, [cells]);
+        setCells(cellsArray);
+    }, [props.pieces]);
 
     return (
         <div className="w-full max-w-[800px] h-[800px] grid grid-cols-8 grid-rows-8">
