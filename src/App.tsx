@@ -59,7 +59,7 @@ function App() {
   function handleTogglePlayer() {
     setCurrentPlayer(currentPlayer === 'white' ? 'black' : 'white');
   }
-  function getPieceDisplayPosition(position: { x: number, y: number }, currentPlayer: 'white' | 'black'): { x: number, y: number } {
+  function getPlayerOrientedPosition(position: { x: number, y: number }, currentPlayer: 'white' | 'black'): { x: number, y: number } {
     const newPositionMap: Record<number, number> = {
       1: 8,
       2: 7,
@@ -79,11 +79,11 @@ function App() {
   useEffect(() => {
     const newWhitePieces = initialWhitePieces.map(piece => ({
       ...piece,
-      position: getPieceDisplayPosition(piece.position, currentPlayer),
+      position: getPlayerOrientedPosition(piece.position, currentPlayer),
     }));
     const newBlackPieces = initialBlackPieces.map(piece => ({
       ...piece,
-      position: getPieceDisplayPosition(piece.position, currentPlayer),
+      position: getPlayerOrientedPosition(piece.position, currentPlayer),
     }));
 
     setWhitePieces(newWhitePieces);
