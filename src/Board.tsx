@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { chessPiece } from "./App";
+import { ChessPiece } from "./App";
 
 type CellProps = {
     index: number;
@@ -7,7 +7,7 @@ type CellProps = {
         x: number;
         y: number;
     };
-    chessPiece: chessPiece | undefined;
+    chessPiece: ChessPiece | undefined;
 }
 
 function Cell(props: CellProps) {
@@ -22,7 +22,7 @@ function Cell(props: CellProps) {
 }
 
 type BoardProps = {
-    pieces: chessPiece[];
+    pieces: ChessPiece[];
     currentPlayer: 'white' | 'black';
 }
 
